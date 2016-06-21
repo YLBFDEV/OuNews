@@ -30,6 +30,7 @@ import com.oushangfeng.ounews.module.news.ui.NewsActivity;
 import com.oushangfeng.ounews.module.photo.ui.PhotoActivity;
 import com.oushangfeng.ounews.module.settings.ui.SettingsActivity;
 import com.oushangfeng.ounews.module.video.ui.VideoActivity;
+import com.oushangfeng.ounews.module.wlzgnews.ui.WLZGNewsActivity;
 import com.oushangfeng.ounews.utils.GlideCircleTransform;
 import com.oushangfeng.ounews.utils.MeasureUtil;
 import com.oushangfeng.ounews.utils.RxBus;
@@ -338,6 +339,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                                 break;
                             case R.id.action_photo:
                                 mClass = PhotoActivity.class;
+                                break;
+                            case R.id.action_wlzgnews:
+                                mClass = WLZGNewsActivity.class;
                                 break;
                             case R.id.action_settings:
                                 mClass = SettingsActivity.class;

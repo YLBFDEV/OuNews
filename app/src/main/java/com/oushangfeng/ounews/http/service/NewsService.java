@@ -6,6 +6,8 @@ import com.oushangfeng.ounews.bean.NeteastVideoSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoList;
 import com.oushangfeng.ounews.bean.WeatherInfo;
+import com.oushangfeng.ounews.bean.wlzgnews.RemoteResult;
+import com.oushangfeng.ounews.http.Api;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +41,16 @@ public interface NewsService {
             @Header("Cache-Control") String cacheControl,
             @Path("type") String type, @Path("id") String id,
             @Path("startPage") int startPage);
+    /**
+     * 请求新闻列表 例子：http://www.50cnnet.com/index.php?m=news&c=app&id=1
+     *
+     * @param id 新闻类别id
+     * @return 被观察对象
+     */
+    @GET(Api.WLZG_NEWS_LIST)
+    Observable<RemoteResult> getWLZGNewsList(
+            @Header("Cache-Control") String cacheControl
+            , @Query("id") String id);
 
     /**
      * 新闻详情：例子：http://c.m.163.com/nc/article/BFNFMVO800034JAU/full.html
@@ -47,7 +59,7 @@ public interface NewsService {
      * @return 被观察对象
      */
     @GET("nc/article/{postId}/full.html")
-    Observable<Map<String, NeteastNewsDetail>> getNewsDetail(@Header("Cache-Control") String cacheControl,@Path("postId") String postId);
+    Observable<Map<String, NeteastNewsDetail>> getNewsDetail(@Header("Cache-Control") String cacheControl, @Path("postId") String postId);
 
     /**
      * 新浪图片新闻列表 例子：http://api.sina.cn/sinago/list.json?channel=hdpic_pretty&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=1
@@ -92,7 +104,7 @@ public interface NewsService {
      */
     @GET("nc/video/list/{id}/n/{startPage}-10.html")
     Observable<Map<String, List<NeteastVideoSummary>>> getVideoList(
-            @Header("Cache-Control") String cacheControl,@Path("id") String id, @Path("startPage") int startPage);
+            @Header("Cache-Control") String cacheControl, @Path("id") String id, @Path("startPage") int startPage);
 
     /**
      * 天气情况 例子：http://wthrcdn.etouch.cn/weather_mini?city=%E5%8C%97%E4%BA%AC
@@ -101,6 +113,6 @@ public interface NewsService {
      * @return 被观察者
      */
     @GET("weather_mini")
-    Observable<WeatherInfo> getWeatherInfo( @Header("Cache-Control") String cacheControl,@Query("city") String city);
+    Observable<WeatherInfo> getWeatherInfo(@Header("Cache-Control") String cacheControl, @Query("city") String city);
 
 }

@@ -42,6 +42,13 @@
             android:theme="@style/BaseAppTheme.AppTheme">
         </activity>
         <activity
+            android:name=".module.wlzgnews.ui.WLZGNewsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_video"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseAppTheme.AppTheme">
+        </activity>
+        <activity
             android:name=".module.photo.ui.PhotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"

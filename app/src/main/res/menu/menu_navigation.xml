@@ -19,6 +19,11 @@
             android:title="@string/photo"/>
 
         <item
+            android:id="@+id/action_wlzgnews"
+            android:icon="@drawable/ic_news_black"
+            android:title="@string/wlzgnews"/>
+
+        <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_more_black"
             android:title="@string/settings"/>

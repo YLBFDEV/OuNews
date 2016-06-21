@@ -114,4 +114,7 @@ dependencies {
         transitive = true
     }
 
+    compile('com.thoughtworks.xstream:xstream:1.4.7') {
+        exclude group: 'xmlpull', module: 'xmlpull'
+    }
 }

@@ -8,6 +8,7 @@
     <string name="video">视频</string>
     <string name="notification">消息</string>
     <string name="weather">天气</string>
+    <string name="wlzgnews">物联中国</string>
     <string name="settings">设置</string>
 
     <!-- 图片栏 -->
@@ -44,6 +45,21 @@
         <item>T1348649580692</item>
     </string-array>
     新闻的可选频道-->
+    <string-array name="wlzgnews_channel">
+        <item>资讯</item>
+        <item>技术</item>
+        <item>应用</item>
+        <item>服务</item>
+    </string-array>
+
+    <string-array name="wlzgnews_channel_id">
+
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string-array name="news_channel">
 
         <!--定死不能更改的三个频道-->

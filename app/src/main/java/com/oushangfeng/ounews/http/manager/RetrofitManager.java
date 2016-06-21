@@ -11,10 +11,12 @@ import com.oushangfeng.ounews.bean.NeteastVideoSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoList;
 import com.oushangfeng.ounews.bean.WeatherInfo;
+import com.oushangfeng.ounews.bean.wlzgnews.RemoteResult;
 import com.oushangfeng.ounews.http.Api;
 import com.oushangfeng.ounews.http.HostType;
 import com.oushangfeng.ounews.http.service.NewsService;
 import com.oushangfeng.ounews.utils.NetUtil;
+import com.oushangfeng.ounews.xstream.XstreamConverterFactory;
 import com.socks.library.KLog;
 
 import java.io.File;
@@ -35,6 +37,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import okio.BufferedSource;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -150,9 +153,14 @@ public class RetrofitManager {
     }
 
     private RetrofitManager(@HostType.HostTypeChecker int hostType) {
-
+        Converter.Factory factory = null;
+        if (hostType == HostType.WLZG_NEWS) {
+            factory = XstreamConverterFactory.create();
+        } else {
+            factory = JacksonConverterFactory.create();
+        }
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.getHost(hostType))
-                .client(getOkHttpClient()).addConverterFactory(JacksonConverterFactory.create())
+                .client(getOkHttpClient()).addConverterFactory(factory)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
 
         mNewsService = retrofit.create(NewsService.class);
@@ -204,6 +212,22 @@ public class RetrofitManager {
      */
     public Observable<Map<String, List<NeteastNewsSummary>>> getNewsListObservable(String type, String id, int startPage) {
         return mNewsService.getNewsList(getCacheControl(), type, id, startPage)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 物联中国请求新闻列表 例子：http://www.50cnnet.com/index.php?m=news&c=app&id=1
+     * <p/>
+     * 对API调用了observeOn(MainThread)之后，线程会跑在主线程上，包括onComplete也是，
+     * unsubscribe也在主线程，然后如果这时候调用call.cancel会导致NetworkOnMainThreadException
+     * 加一句unsubscribeOn(io)
+     *
+     * @param id 新闻类别id
+     * @return 被观察对象
+     */
+    public Observable<RemoteResult> getWLZGNewsListObservable(String id) {
+        return mNewsService.getWLZGNewsList(getCacheControl(), id)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io());
     }

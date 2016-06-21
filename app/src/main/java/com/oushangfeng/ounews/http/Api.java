@@ -21,10 +21,10 @@ public class Api {
     public static final String HEADLINE_TYPE = "headline";
     public static final String HEADLINE_ID = "T1348647909107";
 
-    //    // 北京
-    //    public static final String LOCAL_TYPE = "local";
-    //    // 北京的Id
-    //    public static final String BEIJING_ID = "5YyX5Lqs";
+//        // 北京
+//        public static final String LOCAL_TYPE = "local";
+//        // 北京的Id
+//        public static final String BEIJING_ID = "5YyX5Lqs";
 
     // 房产
     public static final String HOUSE_TYPE = "house";
@@ -129,8 +129,20 @@ public class Api {
     // 图片详情
     public static final String SINA_PHOTO_DETAIL_ID = "hdpic_hdpic_toutiao_4";
 
+
+    /**
+     * 物联中国HOST
+     */
+    public static final String WLZG_HOST = "http://www.50cnnet.com/";
+
+    /**
+     * 物联中国新闻分类 资讯1 技术2 应用3 服务4
+     */
+    public static final String WLZG_NEWS_LIST = "index.php?m=news&c=app";
+
     /**
      * 新闻类别获取类型
+     *
      * @param id
      * @return
      */
@@ -160,6 +172,8 @@ public class Api {
                 return Api.SINA_PHOTO_HOST;
             case HostType.WEATHER_INFO:
                 return Api.WEATHER_HOST;
+            case HostType.WLZG_NEWS:
+                return Api.WLZG_HOST;
         }
         return "";
     }
